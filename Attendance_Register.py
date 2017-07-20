@@ -34,7 +34,7 @@ rightMayFrame_2.pack(side = TOP)
 """Image of school on bottom-right"""
 cont1 = Canvas(rightMayFrame_2, width = 350, height = 425, bg = "black")
 cont1.grid(row = 0, column = 0)
-image5 = PhotoImage(file = "school.gif")
+image5 = PhotoImage(file = "Images/school.gif")
 cont1.create_image(175, 175, image = image5)
 
 """Pictures of students"""
@@ -96,6 +96,19 @@ def Reset():
     value10.set("")
     value11.set("")
 
+
+
+"""Shows photo of student when button is pressed"""
+cont = Canvas(rightMayFrame_1, width = 250, height = 215, bg = "black")
+cont.grid(row = 0, column = 0)
+imagePhoto = PhotoImage(file = "Images/Aaryan Patel.gif")
+cont.create_image(20, 320, image = imagePhoto)
+
+def Pick(photo):
+    """This function displays photo on top right frame"""
+    imagePhoto = cont.create_image(20, 320, image = photo)
+
+
 #=========================Components=========================
 
 DateofOrder.set(time.strftime("%d/%m/%y"))  # set date
@@ -135,7 +148,7 @@ lblDateofOrder.grid(row = 0, column = 8, sticky = W)
 
 
     #------------------------leftMayFrame_2 rows---------------------
-def add_student_to_register(name, number, i, var):
+def add_student_to_register(name, number, email, mobile, i, var, photo):
     """Ths functions add student to the registe at row i"""
      # Label Numbers
     lblNo = Label(leftMayFrame_2, font = ('arial', 10, 'bold'), text = str(i), bd = 16)
@@ -160,23 +173,28 @@ def add_student_to_register(name, number, i, var):
     box.grid(row = i, column = 4)
 
     #add buttons
-    btnSpace = Button(leftMayFrame_2, text = "", padx = 2, pady = 2, bd = 2, fg = "black",
-                      font=('arial', 10, 'bold'), width = 12, height = 1).grid(row = i, column = 5)
-    btnSpace = Button(leftMayFrame_2, text = "", padx = 2, pady = 2, bd = 2, fg = "black",
+    btnSpace = Button(leftMayFrame_2, text = email, padx = 2, pady = 2, bd = 2, fg = "black",
+                      font=('arial', 10, 'bold'), width = 23, height = 1).grid(row = i, column = 5)
+    btnSpace = Button(leftMayFrame_2, text = mobile, padx = 2, pady = 2, bd = 2, fg = "black",
                       font=('arial', 10, 'bold'), width = 11, height = 1).grid(row = i, column = 6)
-    btnSpace = Button(leftMayFrame_2, text = "", padx = 2, pady = 2, bd = 2, fg = "black",
-                      font=('arial', 10, 'bold'), width = 11, height = 1).grid(row = i, column = 7)
-    btnSpace = Button(leftMayFrame_2, text = "", padx = 2, pady = 2, bd = 2, fg = "black",
-                      font=('arial', 10, 'bold'), width = 11, height = 1).grid(row = i, column = 8)
+    btnSpace = Button(leftMayFrame_2, text = "photo", padx = 2, pady = 2, bd = 2, fg = "black",
+                      font=('arial', 10, 'bold'), width = 11, height = 1, command = lambda: Pick(photo)).grid(row = i, column = 7)
 
 #variables to pass 
 values = [value1, value2, value3, value4, value5, value6, value7, value8, value9,
           value10, value11]
-names = open('names.txt', 'r').readlines()
-numbers = open('number.txt', 'r').readlines()
-
+names = open('names.txt', 'r').readlines() #read name, number, and email
+photo_of_student = [None]*11 #access photo by name and store it in array for simplicity and order
 for i in range(11):
-    add_student_to_register(names[i], numbers[i], i, values[i])
+    x = names[i].split(", ")
+    string = "Images/" + x[0] + ".gif"
+    photo_of_student[i] = PhotoImage(file = string)
+    
+for i in range(11):
+    name, number, email, mobile = names[i].split(", ")
+    add_student_to_register(name, number, email, mobile, i, values[i], photo_of_student[i])
+
+
     
 
 

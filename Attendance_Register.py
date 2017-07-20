@@ -1,10 +1,10 @@
-from tkinter import Tk, StringVar, ttk, messagebox
+from tkinter import Tk, StringVar, ttk, messagebox, PhotoImage
 from tkinter import *
 import time
 import datetime
 
 #-------------------------GUI----------------------------
-"""Start by setting up a GUI frame"""
+"""Start by setting up a GUI"""
 root = Tk()                        
 root.title("Attendance Register")  # title of GUI    
 root.geometry("1350x650+0+0")      # dimensions of GUI
@@ -15,15 +15,15 @@ root.configure(background='black') # background color
 """Make frames (Left and Right)"""
  
 leftMayFrame = Frame(root, width = 1000, height = 650, bd = 8, relief = "raise")
-leftMayFrame.pack(side=LEFT)    #left frame
+leftMayFrame.pack(side = LEFT)    #left frame
 rightMayFrame = Frame(root, width = 350, height = 650, bd = 8, relief = "raise")
-rightMayFrame.pack(side=RIGHT)  #right frame
+rightMayFrame.pack(side = RIGHT)  #right frame
 
 """Divide left frame into two"""
 leftMayFrame_1 = Frame(leftMayFrame, width = 1000, height = 100, bd = 8, relief = "raise")
-leftMayFrame_1.pack(side=TOP)
+leftMayFrame_1.pack(side = TOP)
 leftMayFrame_2 = Frame(leftMayFrame, width = 1000, height = 550, bd = 8, relief = "raise")
-leftMayFrame_2.pack(side=TOP)
+leftMayFrame_2.pack(side = TOP)
 
 """Divide right frame into two"""
 rightMayFrame_1 = Frame(rightMayFrame, width = 350, height = 215, bd = 8, relief = "raise")
@@ -31,9 +31,20 @@ rightMayFrame_1.pack(side = TOP)
 rightMayFrame_2 = Frame(rightMayFrame, width = 350, height = 415, bd = 8, relief = "raise")
 rightMayFrame_2.pack(side = TOP)
 
+"""Image of school on bottom-right"""
+cont1 = Canvas(rightMayFrame_2, width = 350, height = 425, bg = "black")
+cont1.grid(row = 0, column = 0)
+image5 = PhotoImage(file = "school.gif")
+cont1.create_image(175, 175, image = image5)
+
+"""Pictures of students"""
+
 #------------------------Variables-----------------------
 DateofOrder = StringVar()
+"""value would be used to store letter
+that can be applied to all others when fill button is pressed"""
 value0 = StringVar()
+"""Value for each box would be stored in variables below"""
 value1 = StringVar()
 value2 = StringVar()
 value3 = StringVar()
@@ -44,8 +55,8 @@ value7 = StringVar()
 value8 = StringVar()
 value9 = StringVar()
 value10 = StringVar()
+value11= StringVar()
 #----------------------Functions of exit and reset--------
-#store in array to make processing easier
 
 def fill_all_box():
     """When fill is pressed, all box would fill with value0"""
@@ -61,6 +72,7 @@ def fill_all_box():
     value8.set(store)
     value9.set(store)
     value10.set(store)
+    value11.set(store)
 
 def qExit():
     """Ask the user whether he/she wants to exit the GUI"""
@@ -82,12 +94,13 @@ def Reset():
     value8.set("")
     value9.set("")
     value10.set("")
+    value11.set("")
 
 #=========================Components=========================
 
-DateofOrder.set(time.strftime("%d/%m/%y"))
+DateofOrder.set(time.strftime("%d/%m/%y"))  # set date
 
-#------------------------leftMayFrame_1----------------------
+#------------------------leftMayFrame_1 (top frame)----------------------
 
  # Label Number
 lblNo = Label(leftMayFrame_1, font = ('arial', 10, 'bold'), text = "No.", bd = 16)
@@ -158,17 +171,13 @@ def add_student_to_register(name, number, i, var):
 
 #variables to pass 
 values = [value1, value2, value3, value4, value5, value6, value7, value8, value9,
-          value10]
+          value10, value11]
+names = open('names.txt', 'r').readlines()
+numbers = open('number.txt', 'r').readlines()
 
-for i in range(10):
-    add_student_to_register("Hi", 1234, i, values[i])
+for i in range(11):
+    add_student_to_register(names[i], numbers[i], i, values[i])
     
-#########################################################################################
-
-
-
-
-
 
 
 

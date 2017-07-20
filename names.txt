@@ -1,4 +1,4 @@
-Aditya Patel, 1234, xyz@abc.com, 123-456-7890
+Adity Patel, 1234, xyz@abc.com, 123-456-7890
 Aaryan Patel, 2345, xyz@abc.com, 123-456-7891
 Yash Shah, 1232, xyz@abc.com, 123-456-7892
 Anshul Kumar, 1678, xyz@abc.com, 123-456-7893

@@ -188,7 +188,10 @@ photo_of_student = [None]*11 #access photo by name and store it in array for sim
 for i in range(11):
     x = names[i].split(", ")
     string = "Images/" + x[0] + ".gif"
-    photo_of_student[i] = PhotoImage(file = string)
+    try:
+        photo_of_student[i] = PhotoImage(file = string)
+    except:
+        photo_of_student[i] = PhotoImage(file = "Images/Default.gif")
     
 for i in range(11):
     name, number, email, mobile = names[i].split(", ")

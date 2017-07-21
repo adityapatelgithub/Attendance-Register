@@ -21,15 +21,15 @@ rightMayFrame.pack(side = RIGHT)  #right frame
 
 """Divide left frame into two"""
 leftMayFrame_1 = Frame(leftMayFrame, width = 1000, height = 100, bd = 8, relief = "raise")
-leftMayFrame_1.pack(side = TOP)
+leftMayFrame_1.pack(side = TOP) #top frame
 leftMayFrame_2 = Frame(leftMayFrame, width = 1000, height = 550, bd = 8, relief = "raise")
-leftMayFrame_2.pack(side = TOP)
+leftMayFrame_2.pack(side = TOP) #bottom frame
 
 """Divide right frame into two"""
 rightMayFrame_1 = Frame(rightMayFrame, width = 350, height = 215, bd = 8, relief = "raise")
-rightMayFrame_1.pack(side = TOP)
+rightMayFrame_1.pack(side = TOP) #top frame
 rightMayFrame_2 = Frame(rightMayFrame, width = 350, height = 415, bd = 8, relief = "raise")
-rightMayFrame_2.pack(side = TOP)
+rightMayFrame_2.pack(side = TOP) #bottom frame
 
 """Image of school on bottom-right"""
 cont1 = Canvas(rightMayFrame_2, width = 350, height = 425, bg = "black")
@@ -40,8 +40,8 @@ cont1.create_image(175, 175, image = image5)
 """Pictures of students"""
 
 #------------------------Variables-----------------------
-DateofOrder = StringVar()
-"""value would be used to store letter
+DateofOrder = StringVar() #stores date
+"""value0 would be used to store letter
 that can be applied to all others when fill button is pressed"""
 value0 = StringVar()
 """Value for each box would be stored in variables below"""
@@ -128,20 +128,22 @@ lblStudentName.grid(row = 0, column = 2, sticky = W)
 lblCourseCode = Label(leftMayFrame_1, font = ('arial', 10, 'bold'), text = "Course Code", bd = 16)
 lblCourseCode.grid(row = 0, column = 3, sticky = W)
 
-#create box with various attendance options. If the user selects attendence option, all students will be marked with that option.
+"""create box with various attendance options. If the user selects attendence
+option, all students will be marked with that option."""
 box = ttk.Combobox(leftMayFrame_1, textvariable = value0, state = 'readonly')
-box["values"] = [' ', '/', 'L', '0', 'A', 'B']
+box["values"] = [' ', '/', 'L', '0', 'A', 'B'] #attendance options
 box.current(0)
 box.grid(row = 0, column = 4)
 
-#add buttons
+#add buttons: fill, reset, exit
 btnArrow = Button(leftMayFrame_1, text = "Fill", padx = 2, pady = 2, bd = 2, fg = "black",
                   font=('arial', 10, 'bold'), width = 12, height = 1, command = fill_all_box).grid(row = 0, column = 5)
 btnReset = Button(leftMayFrame_1, text = "Reset", padx = 2, pady = 2, bd = 2, fg = "black",
                   font=('arial', 10, 'bold'), width = 12, height = 1, command = Reset).grid(row = 0, column = 6)
 btnExit = Button(leftMayFrame_1, text = "Exit", padx = 2, pady = 2, bd = 2, fg = "black",
                   font=('arial', 10, 'bold'), width = 12, height = 1, command = qExit).grid(row = 0, column = 7)
- #date of attendance
+
+#date of attendance
 lblDateofOrder = Label(leftMayFrame_1, font = ('ariel', 10, 'bold'), textvariable = DateofOrder,
                        padx = 2, pady = 2, fg = "black", bg = "white", relief = "sunken")
 lblDateofOrder.grid(row = 0, column = 8, sticky = W)
@@ -149,7 +151,8 @@ lblDateofOrder.grid(row = 0, column = 8, sticky = W)
 
     #------------------------leftMayFrame_2 rows---------------------
 def add_student_to_register(name, number, email, mobile, i, var, photo):
-    """Ths functions add student to the registe at row i"""
+    """Ths functions add student to the registe at row i. Parameters:
+    name, number, email, mobile, row, box-variable, photo of student"""
      # Label Numbers
     lblNo = Label(leftMayFrame_2, font = ('arial', 10, 'bold'), text = str(i), bd = 16)
     lblNo.grid(row = i, column = 0, sticky = W)
@@ -180,21 +183,25 @@ def add_student_to_register(name, number, email, mobile, i, var, photo):
     btnSpace = Button(leftMayFrame_2, text = "photo", padx = 2, pady = 2, bd = 2, fg = "black",
                       font=('arial', 10, 'bold'), width = 11, height = 1, command = lambda: Pick(photo)).grid(row = i, column = 7)
 
-#variables to pass 
+#variables stored in array to process them with ease 
 values = [value1, value2, value3, value4, value5, value6, value7, value8, value9,
           value10, value11]
+
 names = open('names.txt', 'r').readlines() #read name, number, and email
+
 photo_of_student = [None]*11 #access photo by name and store it in array for simplicity and order
-for i in range(11):
-    x = names[i].split(", ")
-    string = "Images/" + x[0] + ".gif"
+
+for i in range(11):    #11 rows
+    """Add image references in an array (so that there is some order)"""
+    x = names[i].split(", ") # get name
+    string = "Images/" + x[0] + ".gif"  #access photo stored in Images as Name.gif
     try:
-        photo_of_student[i] = PhotoImage(file = string)
+        photo_of_student[i] = PhotoImage(file = string) #if photo in Images
     except:
-        photo_of_student[i] = PhotoImage(file = "Images/Default.gif")
+        photo_of_student[i] = PhotoImage(file = "Images/Default.gif")  #else use default
     
 for i in range(11):
-    name, number, email, mobile = names[i].split(", ")
+    name, number, email, mobile = names[i].split(", ")  #get name, number, email
     add_student_to_register(name, number, email, mobile, i, values[i], photo_of_student[i])
 
 

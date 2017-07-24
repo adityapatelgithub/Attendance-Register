@@ -37,8 +37,6 @@ cont1.grid(row = 0, column = 0)
 image5 = PhotoImage(file = "Images/school.gif")
 cont1.create_image(175, 175, image = image5)
 
-"""Pictures of students"""
-
 #------------------------Variables-----------------------
 DateofOrder = StringVar() #stores date
 """value0 would be used to store letter
@@ -56,7 +54,7 @@ value8 = StringVar()
 value9 = StringVar()
 value10 = StringVar()
 value11= StringVar()
-#----------------------Functions of exit and reset--------
+#----------------------Functions for exit and reset button--------
 
 def fill_all_box():
     """When fill is pressed, all box would fill with value0"""
@@ -98,14 +96,15 @@ def Reset():
 
 
 
-"""Shows photo of student when button is pressed"""
+"""Shows photo of first student initially"""
 cont = Canvas(rightMayFrame_1, width = 250, height = 215, bg = "black")
 cont.grid(row = 0, column = 0)
 imagePhoto = PhotoImage(file = "Images/Aaryan Patel.gif")
 cont.create_image(20, 320, image = imagePhoto)
 
 def Pick(photo):
-    """This function displays photo on top right frame"""
+    """This function displays photo on top right frame when show photo button
+is pressed."""
     imagePhoto = cont.create_image(20, 320, image = photo)
 
 
@@ -113,7 +112,7 @@ def Pick(photo):
 
 DateofOrder.set(time.strftime("%d/%m/%y"))  # set date
 
-#------------------------leftMayFrame_1 (top frame)----------------------
+#------------------------leftMayFrame_1 (left top frame)----------------------
 
  # Label Number
 lblNo = Label(leftMayFrame_1, font = ('arial', 10, 'bold'), text = "No.", bd = 16)
@@ -182,7 +181,7 @@ def add_student_to_register(name, number, email, mobile, i, var, photo):
                       font=('arial', 10, 'bold'), width = 11, height = 1).grid(row = i, column = 6)
     btnSpace = Button(leftMayFrame_2, text = "photo", padx = 2, pady = 2, bd = 2, fg = "black",
                       font=('arial', 10, 'bold'), width = 11, height = 1, command = lambda: Pick(photo)).grid(row = i, column = 7)
-
+#===========================function ends...main functionality starts
 #variables stored in array to process them with ease 
 values = [value1, value2, value3, value4, value5, value6, value7, value8, value9,
           value10, value11]
